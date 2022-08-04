@@ -19,7 +19,7 @@ export class SharpPipe
         'image/svg+xml',
       ].includes(image.mimetype)
     )
-      throw new Error();
+      throw new Error('Please upload a picture!');
 
     const dimensions = sizeOf(image.buffer);
     const s3 = new S3({
