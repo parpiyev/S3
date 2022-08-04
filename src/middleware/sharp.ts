@@ -9,6 +9,18 @@ export class SharpPipe
   implements PipeTransform<Express.Multer.File, Promise<object>>
 {
   async transform(image: Express.Multer.File): Promise<object> {
+    if (
+      ![
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+        'image/svg+xml',
+      ].includes(image.mimetype)
+    )
+      throw new Error();
+
     const dimensions = sizeOf(image.buffer);
     const s3 = new S3({
       accessKeyId: 'AKIARZNHHEJHSI6KEZHI',
